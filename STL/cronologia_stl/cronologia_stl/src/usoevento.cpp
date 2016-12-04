@@ -1,19 +1,6 @@
 #include "../include/historical_event.h"
 #include <fstream>
 #include <iostream>
-/*
-istream & operator>>(istream &is,pair<string,string> &d){
-
-	  getline(is,d.first,'#');
-	  getline(is,d.second);
-	  return is;
-}
-*/
-ostream & operator<<(ostream &os,const pair<const string,string> &d){
-
-	  os<<d.first<<'#'<<d.second<<endl;
-	  return os;
-}
 
 int main(int argc , char * argv[]){
   if (argc!=2){
