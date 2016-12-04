@@ -1,0 +1,112 @@
+#Miguel Angel Robles Urquiza
+#Alberto Estepa Fernandez
+
+#Ejercicio 1
+
+Adjuntamos los archivos ordenacion.cpp, ejecuciones_operacion.csh y las gráficas emrica y teórica.
+
+Cuando dibujamos los datos obtenidos de forma empírica vemos que crece de forma exponencial
+la grafica toma un valor máxmimo de 3 segundos, pero a la hora de la ejecucion teórica,
+la eficiencia es O(n^2) que toman ordenes superiores a millones de segundos.
+
+#Ejercicio 2
+
+Al realizar el ajuste cuadrático vemos que los valores son:
+a = 3.27038*10^-9
+b = -3.22216*10^-6
+c = 0.00204674
+
+#Ejercio 3
+
+Evaluacion del algoritmo
+
+//
+int operacion(int *v, int n, int x, int inf, int sup) {
+  int med;
+  bool enc=false;
+  while ((inf<sup) && (!enc)) {
+    med = (inf+sup)/2;
+    if (v[med]==x)
+      enc = true;
+    else if (v[med] < x)
+      inf = med+1;
+    else
+      sup = med-1;
+  }
+  if (enc)
+    return med;
+  else
+    return -1;
+//
+
+
+a)
+A la función operacion le pasamos como parámetros un vector "v", el tamaño del vector "n", el elemento a buscar "x"
+el valor infimo que admite el vector "inf" y el valor máximo "sup".
+
+El algoritmo separa por la mitad el vector buscando el elemento deseado y comprueba si el elemento medio es el valor buscado.
+En caso de que fuera menor, se modificaría el parametro inf y pasaría a tener el nuevo valor de med+1.
+En caso de que fuera mayor, se modificaría el parametro sup y pasaría a tener el nuevo valor de med-1.
+El parámetro n no es utilizado para nada.
+De esta forma el algoritmo va reduciendo la zona de búsqueda dentro del vector v hasta que encuentra el elemento.
+Este algortimo solo tiene sentido si el vector está ordenado de forma creciente.
+El algoritmo se ejecuta hasta que se acaba el vector o se encuentra el elemento buscado.
+
+En nuestro ejemplo, la llamada a la funcion se realiza de la siguiente forma:   operacion(v,tam,tam+1,0,tam-1);
+donde el elemento a buscar, tam+1, es mayor en cualquier caso que v[med], puesto que los valores que están
+dentro del vector están en el rango[0, tam-1], por lo que no encontraría y devolvería -1.
+
+b)
+Tras visualizar la eficiencia empirica vemos que no sigue un patron, sino que al ser numeros aleatorios la busqueda del elemento
+no tiene un tiempo fijo que vaya variando con el numero de elementos del vector.
+
+Final set of parameters
+=======================
+a               = 7.32066e-15
+b               = -9.14004e-11
+c               = 2.80388e-06
+
+
+
+#Ejercicio 4
+
+Adjuntamos las gráficas de las tres distintas configuraciones del metodo de ordenacion y vemos que como
+las eficiencias teoricas concuerdan con las empiricas
+
+
+#Ejercicio 5
+
+Considere esta otra implementación del algoritmo de la burbuja:
+void ordenar(int *v, int n) {
+  bool cambio=true;
+  for (int i=0; i<n-1 && cambio; i++) {
+    cambio=false;
+    for (int j=0; j<n-i-1; j++)
+      if (v[j]>v[j+1]) {
+        cambio=true;
+        int aux = v[j];
+        v[j] = v[j+1];
+        v[j+1] = aux;
+      }
+  }
+}
+
+En el mejor caso posible, el vector estaría ordenado por lo que una vez una vez que haya entrado en el primer bucle
+la variable cambio se actualizaría a false y realizaría n -1 veces el bucle interior, puesto que i=0 y nunca entraría en
+el if. Al realizar la segunda repeticion del bucle no entraría puesto que cambio toma el valor false y para que
+entrara sería necesario que tuviera el valor true.
+
+Asi pues el algorimo tiene eficiencia O(n).
+
+Vemos en la eficiencia empírica que sigue un ajuste lineal pero crece de forma mucho menor que O(n)
+
+#Ejercicio 6
+
+Adjuntamos la graficas y vemos como tarda menos el optimizado.
+
+#Ejercicio 8
+
+Adjuntamos la gráfica empírica y realizamos un ajuste de la forma f(x)  = a*x*log(x) + b
+con:
+a               = 2.39998e-08
+b               = 6.87701e-05
