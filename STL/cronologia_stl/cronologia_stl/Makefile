@@ -2,39 +2,41 @@ SRC = src
 INC = include
 OBJ = obj
 BIN = bin
+LIB = lib
 CXX = g++
-CPPFLAGS = -Wall -g  -I$(INC) -c
-C11 = -std=c++11
+CPPFLAGS = -Wall -g  -I$(INC) -std=c++11 -c
 
 
 
-all: $(BIN)/usevent
 # ************ Generación de documentación ******************
 #documentacion:
 #	doxygen doc/doxys/Doxyfile
 
 
 # ************ Compilación de módulos ************
-all: $(BIN)/usevent $(BIN)/usechronology
 
-$(OBJ)/historical_event.o : $(SRC)/historical_event.cpp
-	$(CXX) $(CPPFLAGS)	-o $(OBJ)/historical_event.o $(SRC)/historical_event.cpp
+all: $(BIN)/usechronology $(BIN)/usevent
 
-$(OBJ)/chronology.o : $(SRC)/chronology.cpp
-	$(CXX) $(CPPFLAGS)  -o $(OBJ)/chronology.o $(SRC)/chronology.cpp
+$(BIN)/usevent: $(OBJ)/usevent.o $(LIB)/libchronology.a
+	$(CXX) -o $(BIN)/usevent $(OBJ)/usevent.o -L$(LIB) -lchronology
 
-$(BIN)/usevent: $(OBJ)/usevent.o
-	$(CXX) -o $(BIN)/usevent $(OBJ)/usevent.o
+$(OBJ)/usevent.o: $(INC)/historical_event.h $(SRC)/usevent.cpp
+	$(CXX) $(CPPFLAGS) $(SRC)/usevent.cpp  -o $(OBJ)/usevent.o
 
-$(OBJ)/usevent.o: $(INC)/historical_event.h $(SRC)/usevent.cpp $(SRC)/historical_event.cpp
-	$(CXX) $(CPPFLAGS)  $(SRC)/usevent.cpp  -o $(OBJ)/usevent.o $(C11) 
-
-$(BIN)/usechronology: $(OBJ)/usechronology.o
-	$(CXX) -o $(BIN)/usechronology $(OBJ)/usechronology.o
+$(BIN)/usechronology: $(OBJ)/usechronology.o $(LIB)/libchronology.a
+	$(CXX) -o $(BIN)/usechronology $(OBJ)/usechronology.o -L$(LIB) -lchronology
 
 $(OBJ)/usechronology.o : $(INC)/chronology.h $(SRC)/usechronology.cpp
-	$(CXX) $(CPPFLAGS)  -o $(OBJ)/usechronology.o $(SRC)/usechronology.cpp $(C11)
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/usechronology.o $(SRC)/usechronology.cpp
 
+$(LIB)/libchronology.a: $(OBJ)/historical_event.o $(OBJ)/chronology.o
+	ar rvs $(LIB)/libchronology.a $(OBJ)/historical_event.o $(OBJ)/chronology.o
+
+$(OBJ)/historical_event.o : $(SRC)/historical_event.cpp $(INC)/historical_event.h
+	$(CXX) $(CPPFLAGS) -o $(OBJ)/historical_event.o $(SRC)/historical_event.cpp
+
+$(OBJ)/chronology.o : $(SRC)/chronology.cpp $(INC)/chronology.h
+	$(CXX) $(CPPFLAGS) -o $(OBJ)/chronology.o $(SRC)/chronology.cpp
 
 
 # ************ Limpieza ************

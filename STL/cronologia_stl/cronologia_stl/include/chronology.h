@@ -6,7 +6,7 @@
 #ifndef __chronology_H
 #define __chronology_H
 #include <map>
-#include "../include/historical_event.h"
+#include "historical_event.h"
 
 using namespace std;
 
@@ -21,7 +21,7 @@ public:
 
   chronology () = default;
   ~chronology () = default;
-
+  chronology(const chronology& other);
    /*
 
 

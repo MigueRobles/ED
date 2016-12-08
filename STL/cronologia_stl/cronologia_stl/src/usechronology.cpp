@@ -1,6 +1,7 @@
-#include "../include/chronology.h"
+
 #include <fstream>
 #include <iostream>
+#include "chronology.h"
 
 int main(int argc , char * argv[]){
   if (argc!=2){

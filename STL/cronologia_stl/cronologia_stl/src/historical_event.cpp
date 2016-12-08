@@ -3,10 +3,12 @@
  * @brief: TDA historicalevent
  * */
 
+#include "historical_event.h"
+
 typedef typename set<string>::iterator iterator;
 typedef typename set<string>::const_iterator const_iterator;
 
-historicalevent::historicalevent(historicalevent &h){
+historicalevent::historicalevent(const historicalevent &h){
 	history.first = h.history.first;
 	history.second = h.history.second;
 

@@ -17,7 +17,7 @@ class historicalevent{
 
   public:
 		historicalevent() = default;
-		historicalevent(historicalevent &h);
+		historicalevent(const historicalevent &h);
 		historicalevent(pair<string, set<string> > &p);
 		~historicalevent() = default;
 
@@ -75,7 +75,5 @@ class historicalevent{
 	}
 
 };
-
-#include "../src/historical_event.cpp"
 
 #endif

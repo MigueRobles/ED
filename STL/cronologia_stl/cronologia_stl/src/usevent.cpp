@@ -1,4 +1,4 @@
-#include "../include/historical_event.h"
+#include "historical_event.h"
 #include <fstream>
 #include <iostream>
 
