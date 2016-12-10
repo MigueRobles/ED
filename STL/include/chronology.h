@@ -28,10 +28,14 @@ public:
   friend istream & operator>>(istream & is, chronology &e);
 
   void insert(const historicalevent& e);
+  void insertrange(const string &min, const string& max);
   void clear();
 
   historicalevent getevents(const string &s);
   int num_event();
+  historicalevent & operator[](const string &nombre);
+  chronology& operator+(const chronology &c);
+
 
 
   /**
@@ -42,7 +46,7 @@ public:
 	/**
      * @brief Inicializa un iterator constante al comienzo del evento
      * */
-  //const_iterator begin() const;
+  const_iterator begin() const;
 	/**
 	 * @brief Inicializa un iterator al final del evento
 	 * */
@@ -51,7 +55,7 @@ public:
 	/**
 	* @brief Inicializa un iterator constante al final del evento
 	* */
-	//const_iterator  end() const;
+	const_iterator  end() const;
 
   /*
 

@@ -20,9 +20,8 @@ historicalevent::historicalevent(const pair<string, set<string> > &p){
 		}
 
 
-ostream &operator<<(ostream & os, historicalevent & e){
+ostream &operator<<(ostream & os, const historicalevent & e){
 	set<string>::iterator it;
-	os << endl;
 	os<<e.history.first;
 	for (it=e.history.second.begin(); it!=e.history.second.end();++it){
 			os <<"#"<< *it;
@@ -75,8 +74,8 @@ void historicalevent::clear(){
 }
 
 historicalevent::iterator historicalevent::begin(){
- iterator i=history.second.begin();
- return i;
+	iterator i=history.second.begin();
+	return i;
 }
 
 historicalevent::const_iterator historicalevent::begin()const{
@@ -85,11 +84,11 @@ historicalevent::const_iterator historicalevent::begin()const{
 }
 
 historicalevent::iterator historicalevent::end(){
-iterator i=history.second.end();
-return i;
+	iterator i=history.second.end();
+	return i;
 }
 
 historicalevent::const_iterator historicalevent::end()const {
-iterator i=history.second.end();
-return i;
+	iterator i=history.second.end();
+	return i;
 }

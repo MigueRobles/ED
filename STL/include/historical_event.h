@@ -24,7 +24,7 @@ class historicalevent{
 		typedef typename set<string>::iterator iterator;
 		typedef typename set<string>::const_iterator const_iterator;
 
-		friend ostream & operator<<(ostream & os, historicalevent & e);
+		friend ostream & operator<<(ostream & os, const historicalevent & e);
 
 		friend istream & operator>>(istream & is, historicalevent &e);
 
