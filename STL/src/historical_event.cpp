@@ -21,8 +21,6 @@ historicalevent::historicalevent(const pair<string, set<string> > &p){
 				history.second = p.second;
 		}
 
-		string s;
-
 ostream &operator<<(ostream & os, const historicalevent & e){
 	set<string>::iterator it;
 
@@ -74,28 +72,6 @@ void historicalevent::setyear(string y){
 void historicalevent::clear(){
 	history.first = "";
 	history.second.clear();
-}
-
-bool historicalevent::foundkey(string key){
-	bool exist = false;
-	for (iterator i = history.second.begin(); i != history.second.end() && !exist ; ++i)
-		if (((*i).find(key)) != string::npos)
-			exist = true;
-	return exist;
-}
-
-historicalevent& historicalevent::eventskey(string key){
-	set < string > s;
-	for (iterator i = history.second.begin(); i != history.second.end(); ++i){
-		if (((*i).find(key)) != string::npos)
-			s.insert(*i);
-	}
-	historicalevent e;
-	e.setyear(year());
-	set<string>::iterator siterator;
-	for (set<string>::iterator siterator = s.begin(); siterator != s.end(); ++siterator)
-		e.setevents(*siterator);
-	return e;
 }
 
 int historicalevent::size(){

@@ -6,13 +6,6 @@ chronology::chronology(const chronology& other){
     insert(i->second);
 }
 
-chronology::chronology(chronology& other, string key){
-
-  for (iterator it = other.begin(); it != other.end(); ++it)
-    if (it->second.foundkey(key))
-      insert(it->second.eventskey(key));
-}
-
 
 ostream &operator<<(ostream & os, chronology &c){
 
@@ -46,7 +39,7 @@ void chronology::insert(const historicalevent& e){
     it->second.setevents(*i);
   }
 }
-chronology chronology::insertrange(const string &min, string max){
+chronology chronology::insertrange(const string &min, const string &max){
   chronology c1;
   iterator low =prev(end());
   iterator up = end();
@@ -67,15 +60,51 @@ chronology chronology::insertrange(const string &min, string max){
       found_max = true;
     }
   }
-    for(low; low != up; low++){
+  if(low!= up || found_max || found_min){
+    for(; low != up; low++){
       c1.insert(low->second);
     }
+
     if(up != end())
       c1.insert(low->second);
+  }
+  else{
+    historicalevent e;
+    e.setyear("-1");
+    c1.insert(e);
+  }
+
   return c1;
+}
+chronology chronology::insertkey(const string& key) {
+
+	chronology c;
+  historicalevent e;
+	chronology::const_iterator it = begin();
+	historicalevent::iterator it2 ;
+
+	while (it != end()) {
+		it2 = it->second.begin();
+		while(it2 != it->second.end()){
+			if ((it2->find(key)) != (it2->npos)){
+        e.setyear(it->second.year());
+        e.setevents(*it2);
+        c.insert(e);
+			 }
+			it2++;
+		}
+		it++;
+	}
+
+	return c ;
+
 }
 void chronology::clear(){
     chrono.clear();
+}
+string chronology::year(){
+  iterator it = begin();
+  return it->first;
 }
 
 historicalevent chronology::getevents(const string &s) {

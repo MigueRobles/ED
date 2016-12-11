@@ -9,8 +9,8 @@ CPPFLAGS = -Wall -g  -I$(INC) -std=c++11 -c
 
 
 # ************ Generación de documentación ******************
-#documentacion:
-#	doxygen doc/doxys/Doxyfile
+documentacion: all
+	doxygen doc/doxys/Doxyfile
 
 
 # ************ Compilación de módulos ************

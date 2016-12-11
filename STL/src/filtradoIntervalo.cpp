@@ -22,36 +22,38 @@ int main(int argc, char * argv[]){
 
      string min;
      string max;
-   if (argc > 2){
-     min = argv[2];
-     max = argv[3];
-   }else{
-     cout << "Introduce el minimo: ";
-     cin >> min;
-     cout << "Introduce el max: ";
-     cin >> max;
-   }
+     if (argc > 2){
+       min = argv[2];
+       max = argv[3];
+     }else{
+       cout << "Introduce el minimo: ";
+       cin >> min;
+       cout << "Introduce el max: ";
+       cin >> max;
+     }
 
-   chronology origen;
+    chronology origen;
 
-   f1 >> origen;
+    f1 >> origen;
 
-   chronology destino(origen.insertrange(min, max));
-   cout << "Los eventos entre " << min << " y " << max << " son: "<< endl;
+    chronology destino(origen.insertrange(min, max));
 
-   cout << destino;
 
-/*
-    if (argc==4)   //No se dio fichero de salida, imprimimos en cout
-      cout << cUnion;
-    else{
-     ofstream fout(argv[3]);
+
+    if (argc==2 || argc == 4){   //No se dio fichero de salida, imprimimos en cout
+      if(destino.year() != "-1"){
+        cout << "Los eventos entre " << min << " y " << max << " son: "<< endl;
+        cout << destino;
+      }
+      else
+        cout << "No hay eventos entre esos años" << endl;
+    }else if( argc == 3 || argc == 5){
+     ofstream fout(argv[4]);
      if (!fout){
       cout<<"No puedo crear el fichero "<<argv[3]<<endl;
       return 0;
      }
-     fout << cUnion;
-
-   }*/
+     fout << destino;
+   }
 
 }

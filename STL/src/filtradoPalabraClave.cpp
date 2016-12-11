@@ -29,7 +29,7 @@ int main(int argc, char * argv[]){
 
   chronology c1;
   f >> c1;
-  chronology cFiltrado(c1, palabra_clave);
+  chronology cFiltrado(c1.insertkey(palabra_clave));
 
 
   if (argc<=3)   //No se dio fichero de salida, imprimimos en cout
