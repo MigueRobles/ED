@@ -15,7 +15,7 @@ CPPFLAGS = -Wall -g  -I$(INC) -std=c++11 -c
 
 # ************ Compilación de módulos ************
 
-all: $(BIN)/usechronology $(BIN)/usevent $(BIN)/union_cronologia $(BIN)/filtradoIntervalo
+all: $(BIN)/usechronology $(BIN)/usevent $(BIN)/union_cronologia $(BIN)/filtradoIntervalo $(BIN)/estadisticaEventos $(BIN)/filtradoPalabraClave
 
 $(BIN)/usevent: $(OBJ)/usevent.o $(LIB)/libchronology.a
 	$(CXX) -o $(BIN)/usevent $(OBJ)/usevent.o -L$(LIB) -lchronology
@@ -49,6 +49,18 @@ $(BIN)/filtradoIntervalo: $(OBJ)/filtradoIntervalo.o $(LIB)/libchronology.a
 
 $(OBJ)/filtradoIntervalo.o : $(INC)/chronology.h $(SRC)/filtradoIntervalo.cpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/filtradoIntervalo.o $(SRC)/filtradoIntervalo.cpp
+
+$(BIN)/filtradoPalabraClave: $(OBJ)/filtradoPalabraClave.o $(LIB)/libchronology.a
+		$(CXX) -o $(BIN)/filtradoPalabraClave $(OBJ)/filtradoPalabraClave.o -L$(LIB) -lchronology
+
+$(OBJ)/filtradoPalabraClave.o : $(INC)/chronology.h $(SRC)/filtradoPalabraClave.cpp
+		$(CXX) $(CPPFLAGS)  -o $(OBJ)/filtradoPalabraClave.o $(SRC)/filtradoPalabraClave.cpp
+
+$(BIN)/estadisticaEventos: $(OBJ)/estadisticaEventos.o $(LIB)/libchronology.a
+		$(CXX) -o $(BIN)/estadisticaEventos $(OBJ)/estadisticaEventos.o -L$(LIB) -lchronology
+
+$(OBJ)/estadisticaEventos.o : $(INC)/chronology.h $(SRC)/estadisticaEventos.cpp
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/estadisticaEventos.o $(SRC)/estadisticaEventos.cpp
 
 # ************ Limpieza ************
 clean :

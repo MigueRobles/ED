@@ -22,17 +22,20 @@ public:
   chronology () = default;
   ~chronology () = default;
   chronology(const chronology& other);
+  chronology(chronology& other, string key); //Constructor para filtrado por palabra clave
 
 
   friend ostream & operator<<(ostream & os, chronology &c);
   friend istream & operator>>(istream & is, chronology &e);
 
   void insert(const historicalevent& e);
-  void insertrange(const string &min, const string& max);
+  chronology insertrange(const string &min, string max);
   void clear();
 
   historicalevent getevents(const string &s);
-  int num_event();
+  int num_event(); //numero de historicalevent
+  int num_happening(); //numero total de acontecimientos
+  int max(); //numero de acontecimientos del evento de la cronologia con mas acontecimientos
   historicalevent & operator[](const string &nombre);
   chronology& operator+(const chronology &c);
 
@@ -57,14 +60,6 @@ public:
 	* */
 	const_iterator  end() const;
 
-  /*
-
-
-  set<string> getallevents();
-  string year();
-  void setevents(string events);
-  void setyear(string y);
-    */
 
   };
 

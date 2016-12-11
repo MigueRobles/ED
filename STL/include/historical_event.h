@@ -32,10 +32,14 @@ class historicalevent{
 
 		const string year() const;
 
+		int size();
+
 		void setevents(string events);
 		void setyear(string y);
 		void clear();
 
+		bool foundkey(string key);
+		historicalevent& eventskey(string key);
 
 	/**
      * @brief Inicializa un iterator al comienzo del evento
