@@ -4,9 +4,9 @@ OBJ = obj
 LIB = lib
 BIN = bin
 CXX = g++
-AR = ar rvs		
-AR_MACOSX = libtool -static -o  
-CPPFLAGS = -Wall -g  -I$(INC) -c
+AR = ar rvs
+AR_MACOSX = libtool -static -o
+CPPFLAGS = -Wall -g  -I$(INC) -std=c++11 -c
 
 
 
@@ -15,9 +15,9 @@ all: $(BIN)/conecta4 $(BIN)/arboltablero_test
 documentacion:
 	doxygen doc/doxys/Doxyfile
 
-	
+
 # ************ Compilación de módulos ************
-$(BIN)/arboltablero_test: $(OBJ)/arboltablero_test.o $(LIB)/libtablero.a 
+$(BIN)/arboltablero_test: $(OBJ)/arboltablero_test.o $(LIB)/libtablero.a
 	$(CXX) -o $(BIN)/arboltablero_test $(OBJ)/arboltablero_test.o -I$(INC) -L$(LIB) -ltablero
 
 $(BIN)/conecta4: $(OBJ)/conecta4.o $(LIB)/libtablero.a $(LIB)/libmando.a

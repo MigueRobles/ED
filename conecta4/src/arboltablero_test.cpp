@@ -76,6 +76,34 @@ int main(int argc, char *argv[]){
 	cout << "\nRecorrido preorden después de podar hijomasizquierda: \n"<<endl;
     partida.recorrer_preorden();
 
+    //PRUEBAS
+    cout << "\n************PRUEBAS PROPIAS****************\n";
 
-    return 0;
+    cout <<"\nRecorrido preorden rama_podada: \n";
+    rama_podada.recorrer_preorden();
+
+  /*  cout << "ARBOLITO" << endl;
+    ArbolGeneral<int> arbolito(1);
+    ArbolGeneral<int> arbolito3(3);
+    arbolito.insertar_hijomasizquierda(arbolito.raiz(), arbolito3);
+    ArbolGeneral<int> arbolito2(2);
+    ArbolGeneral<int> arbolito4(4);
+    arbolito2.insertar_hijomasizquierda(arbolito2.raiz(), arbolito4);
+    arbolito.insertar_hijomasizquierda(arbolito.raiz(), arbolito2);
+    arbolito.recorrer_preorden();
+
+    cout << "ARBOLITO0" << endl;
+    ArbolGeneral<int> arbolito0(2);
+    ArbolGeneral<int> arbolito9(9);
+    arbolito0.insertar_hijomasizquierda(arbolito0.raiz(), arbolito9);
+    ArbolGeneral<int> arbolito7(7);
+    ArbolGeneral<int> arbolito8(8);
+    arbolito7.insertar_hijomasizquierda(arbolito7.raiz(), arbolito8);
+    arbolito0.insertar_hijomasizquierda(arbolito0.raiz(), arbolito7);
+    arbolito0.recorrer_preorden();
+
+    cout << "ARBOLITO" << endl;
+    arbolito.asignar_subarbol(arbolito0, arbolito0.raiz());
+    arbolito.recorrer_preorden();
+    */
 }
