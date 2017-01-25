@@ -1,24 +1,33 @@
 #include <iostream>
 #include "ArbolGeneral.h"
+#include "jugador_automatico.h"
 #include "tablero.h"
 #include <string>
 
 using namespace std;
 
-
 int main(int argc, char *argv[]){
-
 	//Tablero vacío 5x7
-    Tablero tablero(5, 7);
+    Tablero tablero(4, 4);
 
     //Manualmente se insertan algunos movimientos:
-    tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3
+    tablero.colocarFicha(3);	//Jugador 1(X) inserta ficha en columna 3
     tablero.cambiarTurno();
-    tablero.colocarFicha(1);	//Jugador 2 inserta ficha en columna 1
+    tablero.colocarFicha(1);	//Jugador 2(o) inserta ficha en columna 1
     tablero.cambiarTurno();
     tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3.
     tablero.cambiarTurno();
+    tablero.colocarFicha(1);	//Jugador 1 inserta ficha en columna 3.
+    tablero.cambiarTurno();
+    tablero.colocarFicha(3);	//Jugador 1 inserta ficha en columna 3.
+    tablero.cambiarTurno();
+    tablero.colocarFicha(1);	//Jugador 1 inserta ficha en columna 3.
+    tablero.cambiarTurno();
+    tablero.colocarFicha(2);
 
+
+
+    /*
     //Se muestra el tablero
     cout << "Tablero obtenido tras tres movimientos: \n"<<tablero;
 
@@ -82,28 +91,16 @@ int main(int argc, char *argv[]){
     cout <<"\nRecorrido preorden rama_podada: \n";
     rama_podada.recorrer_preorden();
 
-  /*  cout << "ARBOLITO" << endl;
-    ArbolGeneral<int> arbolito(1);
-    ArbolGeneral<int> arbolito3(3);
-    arbolito.insertar_hijomasizquierda(arbolito.raiz(), arbolito3);
-    ArbolGeneral<int> arbolito2(2);
-    ArbolGeneral<int> arbolito4(4);
-    arbolito2.insertar_hijomasizquierda(arbolito2.raiz(), arbolito4);
-    arbolito.insertar_hijomasizquierda(arbolito.raiz(), arbolito2);
-    arbolito.recorrer_preorden();
+*/
+    /*----------------------------------------------------------------*/
+    cout <<"\nPrueba de generacion de árboles y su primer nivel: \n";
 
-    cout << "ARBOLITO0" << endl;
-    ArbolGeneral<int> arbolito0(2);
-    ArbolGeneral<int> arbolito9(9);
-    arbolito0.insertar_hijomasizquierda(arbolito0.raiz(), arbolito9);
-    ArbolGeneral<int> arbolito7(7);
-    ArbolGeneral<int> arbolito8(8);
-    arbolito7.insertar_hijomasizquierda(arbolito7.raiz(), arbolito8);
-    arbolito0.insertar_hijomasizquierda(arbolito0.raiz(), arbolito7);
-    arbolito0.recorrer_preorden();
+    Tablero tab(5, 5);
+    jugador_automatico j1;
+    jugador_automatico j(tab, 2);
+    ArbolGeneral<Tablero> t = j.GetArbol();
+    t.recorrer_por_niveles(t.raiz());
 
-    cout << "ARBOLITO" << endl;
-    arbolito.asignar_subarbol(arbolito0, arbolito0.raiz());
-    arbolito.recorrer_preorden();
-    */
+
+
 }

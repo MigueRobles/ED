@@ -137,6 +137,12 @@ public:
     int GetTurno() { return turno; }
 
     /**
+     * @brief Calcula cuantas fichas tiene el tablero
+     * @return Devuelve cuantas fichs tiene el tablero
+     */
+    int FichasIntroducidas();
+
+    /**
      * @brief Operador de igualdad. Asigna los valores del tablero de la derecha
      *      al de la izquierda.
      * @param derecha : Tablero origen que se va a copiar.
@@ -144,11 +150,20 @@ public:
      */
     Tablero& operator=(const Tablero& derecha);
 
+
+    /**
+     * @brief Operador de comparacion
+     * @param derecha : Tablero origen que se va a comparacion.
+     * @return Devuelve la true si son iguales, false si no.
+     */
+    bool operator==(const Tablero& derecha);
+
     /**
      * @brief Operador flujo de salida. Imprime el tablero por el flujo de salida.
      * @param os : Flujo de salida.
      * @param t : Tablero que se va a imprimir.
      */
+
     friend ostream& operator<<(ostream& os, const Tablero& t);
     /**
      * @brief Función que calcula en un estado concreto del tablero, quién gana.
@@ -158,6 +173,8 @@ public:
      *      jugador 1 y 2 si ha ganado el jugador 2.
      */
     int quienGana();
+
+    bool llenoSalvo(int columna) const;
 
 };
 

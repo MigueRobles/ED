@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <ctime>
@@ -7,7 +6,7 @@
 #include <unistd.h>
 #include <termio.h>     // Linux/Windows users
 //#include <termios.h>    // Mac OSX users
-#include "JugadorAutomatico.h"
+#include "jugador_automatico.h"
 #include "ArbolGeneral.h"
 #include "tablero.h"
 #include "mando.h"
@@ -85,34 +84,97 @@ int jugar_partida(const int filas, const int columnas, const int metrica, const 
     char c = 1;
     int quienGana = tablero.quienGana();
     //mientras no haya ganador y no se pulse tecla de terminación
-    if (metrica == 0){
-      while(c != Mando::KB_ESCAPE && quienGana == 0) {
+
+    switch ( metrica ){
+
+      case 1:
+      {
+        while(c != Mando::KB_ESCAPE && quienGana == 0) {
           system("clear");
           mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
           imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
           quienGana = tablero.quienGana();    // hay ganador?
           if(quienGana==0) c = getch();       // Capturamos la tecla pulsada.
+        }
+        break;
       }
-    }
-    else{
-          JugadorAutomatico jugador;
-          int contador = 0;
-          while(c != Mando::KB_ESCAPE && quienGana == 0) {
+      case 2:
+      {
+        jugador_automatico jugador(tablero,1);
+        while(c != Mando::KB_ESCAPE && quienGana == 0) {
           system("clear");
           cout << "Player(x) vs Computer(o)" << endl;
-          //PARTIDA CON JUGADOR ALEATORIO
-          //METRICA == 1;
-          mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
           imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
           quienGana = tablero.quienGana();
-          if (tablero.GetTurno() == 2 ){
-            jugador.metrica1(mando, c, contador, quienGana);
 
-        }else if(quienGana==0)
-          c = getch();
+          if (tablero.GetTurno() == 2 && quienGana == 0)
+            jugador.metrica1(tablero);
+          else if (tablero.GetTurno() == 1 && quienGana == 0){
+            c = getch();
+            mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
+          }
+        }
+        break;
       }
-  }
-  cerr << "AMAPOLA";
+      case 3:
+      {
+          while(c != Mando::KB_ESCAPE && quienGana == 0) {
+          jugador_automatico jugador(tablero,1);
+          system("clear");
+          cout << "Player(x) vs Computer(o)" << endl;
+          imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
+          quienGana = tablero.quienGana();
+
+          if (tablero.GetTurno() == 2 && quienGana == 0)
+            jugador.metrica2(tablero);
+          else if (tablero.GetTurno() == 1 && quienGana == 0){
+            c = getch();
+            mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
+          }
+        }
+        break;
+      }
+      case 4:
+      {
+        while(c != Mando::KB_ESCAPE && quienGana == 0) {
+          jugador_automatico jugador(tablero,1);
+          system("clear");
+          cout << "Player(x) vs Computer(o)" << endl;
+          imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
+          quienGana = tablero.quienGana();
+          if (tablero.GetTurno() == 2 && quienGana == 0)
+            jugador.metrica3(tablero);
+
+          else if (tablero.GetTurno() == 1 && quienGana == 0){
+            c = getch();
+            mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
+            }
+          }
+          break;
+        }
+        case 5:
+        {
+          while(c != Mando::KB_ESCAPE && quienGana == 0) {
+            jugador_automatico jugador(tablero,2);
+          //  system("clear");
+            cout << "Player(x) vs Computer(o)" << endl;
+            imprimeTablero(tablero, mando);     // muestra tablero y mando en pantalla
+            quienGana = tablero.quienGana();
+            if (tablero.GetTurno() == 2 && quienGana == 0)
+              jugador.metrica4(tablero);
+            else if (tablero.GetTurno() == 1 && quienGana == 0){
+              c = getch();
+              mando.actualizarJuego(c, tablero);  // actualiza tablero según comando c
+            }
+
+          }
+        break;
+      }
+      default:
+       cerr << "Métrica Incorrecta\n";
+       exit(-1);
+     }
+
   quienGana = tablero.quienGana();
   return quienGana;
 }

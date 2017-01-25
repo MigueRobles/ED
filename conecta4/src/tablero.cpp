@@ -29,6 +29,17 @@ Tablero::Tablero(const Tablero& t) :
     tablero(t.tablero), filas(t.filas), columnas(t.columnas), turno(t.turno) {
 }
 
+int Tablero::FichasIntroducidas(){
+  int contador = 0;
+  int i,j;
+  for (i = GetFilas() - 1; i >= 0; i--)
+      for (j = GetColumnas() - 1; j >= 0; j--)
+        if(tablero[i][j] != 0)
+          contador++;
+  return contador;
+
+}
+
 int Tablero::hayHueco(int pos){
     int i = 0;          // Recorremos la matriz de arriba hacia abajo.
     bool encontrado = false;
@@ -95,6 +106,17 @@ Tablero& Tablero::operator=(const Tablero& derecha) {
     return *this;
 }
 
+bool Tablero::operator==(const Tablero& derecha){
+  if (derecha.filas == filas && derecha.columnas == columnas)
+    for(int i = 0; i < filas; ++i)
+      for(int j = 0; j < columnas; ++j)
+        if(derecha.tablero[i][j] != tablero[i][j])
+          return false;
+  else
+    return false;
+  return true;
+}
+
 ostream& operator<<(ostream& os, const Tablero& t) {
     os << t.GetTablero();
     return os;
@@ -104,7 +126,6 @@ int Tablero::quienGana(){
     int ganador = 0;
     int count = 0;
     int i, j;
-    int aux, aux2;
 
     for (i = 0; i < filas; i++) {
         for (j = 0; j < columnas; j++) {
@@ -114,13 +135,9 @@ int Tablero::quienGana(){
                 if (tablero[i + k][j] != 0) {
                     if (count == 0) {
                         ganador = tablero[i + k][j];
-                        aux = i + k;
-                        aux2 = j + k;
                         count++;
                     } else {
                         if (ganador == tablero[i + k][j]) {
-                            aux = i + k;
-                            aux2 = j;
                             count++;
                         } else {
                             count = 0;
@@ -137,20 +154,13 @@ int Tablero::quienGana(){
 
             // comprobar filas
             count = 0;
-
-            for (int k = 0; k < N_FICHAS_GANAR
-                    && j + k < columnas; k++) {
-
+            for (int k = 0; k < N_FICHAS_GANAR && j + k < columnas; k++) {
                 if (tablero[i][j + k] != 0) {
                     if (count == 0) {
                         ganador = tablero[i][j + k];
-                        aux = i + k;
-                        aux2 = j + k;
                         count++;
                     } else {
                         if (ganador == tablero[i][j + k]) {
-                            aux = i;
-                            aux2 = j + k;
                             count++;
                         } else {
                             count = 0;
@@ -168,20 +178,13 @@ int Tablero::quienGana(){
             // comprobar diagonal 1
             count = 0;
 
-            for (int k = 0; k < N_FICHAS_GANAR
-                    && i + k < filas
-                    && j + k < columnas; k++) {
-
+            for (int k = 0; k < N_FICHAS_GANAR && i + k < filas && j + k < columnas; k++) {
                 if (tablero[i + k][j + k] != 0) {
                     if (count == 0) {
                         ganador = tablero[i + k][j + k];
-                        aux = i + k;
-                        aux2 = j + k;
                         count++;
                     } else {
                         if (ganador == tablero[i + k][j + k]) {
-                            aux = i + k;
-                            aux2 = j + k;
                             count++;
                         } else {
                             count = 0;
@@ -199,18 +202,13 @@ int Tablero::quienGana(){
             // comprobar diagonal 2
 
             count = 0;
-            for (int k = 0; k < N_FICHAS_GANAR && i - k >= 0
-                    && j + k < columnas; k++) {
+            for (int k = 0; k < N_FICHAS_GANAR && i - k >= 0 && j + k < columnas; k++) {
                 if (tablero[i - k][j + k] != 0) {
                     if (count == 0) {
                         ganador = tablero[i - k][j + k];
-                        aux = i - k;
-                        aux2 = j + k;
                         count++;
                     } else {
                         if (ganador == tablero[i - k][j + k]) {
-                            aux = i - k;
-                            aux2 = j + k;
                             count++;
                         } else {
                             count = 0;
@@ -227,4 +225,18 @@ int Tablero::quienGana(){
         }
     }
     return 0;
+}
+
+bool Tablero::llenoSalvo(int columna) const {
+  int i, j;
+  for (i = GetFilas() - 1; i >= 0; i--){
+      for (j = GetColumnas() - 1; j >= 0; j--){
+        if(j == columna)
+          break;
+        else
+          if(tablero[i][j] == 0)
+            return false;
+      }
+  }
+  return true;
 }
